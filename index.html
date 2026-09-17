@@ -27,7 +27,6 @@
     nav { display:flex; justify-content:space-between; align-items:center; padding:10px 0 48px; }
     .brand { font-family:'Cormorant Garamond',serif; font-size:1.5rem; letter-spacing:.05em; }
     .eyebrow { color:var(--gold); font-size:.7rem; letter-spacing:.22em; text-transform:uppercase; }
-    .music { border:1px solid #ffffff2b; border-radius:999px; padding:9px 14px; color:#f8edf0; background:#ffffff0b; cursor:pointer; backdrop-filter:blur(10px); }
     .hero { display:grid; grid-template-columns:1.05fr .95fr; align-items:center; gap:clamp(25px,7vw,90px); min-height:calc(100svh - 120px); }
     h1,h2,h3,p { margin:0; } h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(4rem,10vw,8rem); line-height:.82; font-weight:600; letter-spacing:-.05em; } h1 em { color:var(--rose); font-style:normal; } .lead { max-width:430px; margin:28px 0; color:#d6c5cc; line-height:1.8; }
     .cta { display:inline-flex; align-items:center; gap:10px; border:0; border-radius:999px; padding:15px 22px; color:#21121a; background:linear-gradient(120deg,var(--gold),#fff1c9); font-weight:700; box-shadow:0 16px 38px #f7d99a28; cursor:pointer; transition:.25s; } .cta:hover { transform:translateY(-3px); box-shadow:0 20px 42px #f7d99a45; }
@@ -53,7 +52,7 @@
   <main class="scene">
     <div class="orb one"></div><div class="orb two"></div>
     <div class="wrap">
-      <nav><div class="brand">A little universe for Sruti</div><button class="music" id="music-toggle">🎵 Play melody</button></nav>
+      <nav><div class="brand">A little universe for Sruti</div></nav>
       <section class="hero">
         <div class="hero-copy">
           <div class="eyebrow">For the girl who makes everything brighter</div>
@@ -85,12 +84,9 @@
       </section>
       <footer>Made especially for Sruti · with love, always</footer>
     </div>
-    <audio id="melody" loop><source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_a79f1611fd.mp3?filename=happy-birthday-508020.mp3" type="audio/mpeg"></audio>
   </main>
   <script>
-    const music=document.getElementById('melody'), toggle=document.getElementById('music-toggle');
-    document.getElementById('begin').addEventListener('click',()=>{ document.getElementById('letter-section').scrollIntoView({behavior:'smooth'}); music.play().then(()=>toggle.textContent='🔊 Music on').catch(()=>{}); confetti({particleCount:90,spread:65,origin:{y:.7},colors:['#f59ab7','#f7d99a','#ffffff']}); });
-    toggle.addEventListener('click',()=>{ if(music.paused){music.play();toggle.textContent='🔊 Music on';}else{music.pause();toggle.textContent='🎵 Play melody';} });
+    document.getElementById('begin').addEventListener('click',()=>{ document.getElementById('letter-section').scrollIntoView({behavior:'smooth'}); confetti({particleCount:90,spread:65,origin:{y:.7},colors:['#f59ab7','#f7d99a','#ffffff']}); });
     if(window.Motion) Motion.animate('.hero-copy',{opacity:[0,1],y:[30,0]},{duration:1,ease:[.22,1,.36,1]});
     if(window.Motion) Motion.animate('.portrait-wrap',{opacity:[0,1],scale:[.92,1],y:[24,0]},{duration:1.1,delay:.15,ease:[.22,1,.36,1]});
     if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting&&window.Motion) Motion.animate(e.target,{opacity:[0,1],y:[28,0]},{duration:.8,ease:[.22,1,.36,1]});}),{threshold:.15});document.querySelectorAll('.section').forEach(s=>observer.observe(s));}
