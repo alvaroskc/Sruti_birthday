@@ -1,95 +1,32 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#09070d" />
-  <title>For Sruti, with all my love ✨</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/motion@10.18.0/dist/motion.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=Parisienne&display=swap" rel="stylesheet">
-  <style>
-    :root { color-scheme: dark; --rose:#f59ab7; --gold:#f7d99a; --ink:#f8edf0; }
-    * { box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
-    body { margin:0; min-height:100vh; color:var(--ink); font-family:'DM Sans',sans-serif; background:#09070d; overflow-x:hidden; }
-    body:before { content:""; position:fixed; inset:0; pointer-events:none; opacity:.15; z-index:4; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E"); mix-blend-mode:soft-light; }
-    .scene { min-height:100svh; position:relative; overflow:hidden; background:radial-gradient(ellipse at 50% 0%,#4a2535 0%,#1d1320 38%,#09070d 78%); }
-    .scene:after { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(180deg,transparent 60%,#09070d 100%); }
-    .orb { position:absolute; border-radius:50%; filter:blur(4px); opacity:.35; animation:drift 14s ease-in-out infinite alternate; }
-    .orb.one { width:34rem;height:34rem;top:-15rem;left:-10rem;background:#c05b7d; }
-    .orb.two { width:25rem;height:25rem;right:-10rem;bottom:5rem;background:#7660ad;animation-delay:-5s; }
-    @keyframes drift { to { transform:translate(28px,18px) scale(1.08); } }
-    .wrap { position:relative; z-index:5; width:min(1050px,100%); margin:auto; padding:22px 18px 70px; }
-    nav { display:flex; justify-content:space-between; align-items:center; padding:10px 0 48px; }
-    .brand { font-family:'Cormorant Garamond',serif; font-size:1.5rem; letter-spacing:.05em; }
-    .eyebrow { color:var(--gold); font-size:.7rem; letter-spacing:.22em; text-transform:uppercase; }
-    .hero { display:grid; grid-template-columns:1.05fr .95fr; align-items:center; gap:clamp(25px,7vw,90px); min-height:calc(100svh - 120px); }
-    h1,h2,h3,p { margin:0; } h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(4rem,10vw,8rem); line-height:.82; font-weight:600; letter-spacing:-.05em; } h1 em { color:var(--rose); font-style:normal; } .lead { max-width:430px; margin:28px 0; color:#d6c5cc; line-height:1.8; }
-    .cta { display:inline-flex; align-items:center; gap:10px; border:0; border-radius:999px; padding:15px 22px; color:#21121a; background:linear-gradient(120deg,var(--gold),#fff1c9); font-weight:700; box-shadow:0 16px 38px #f7d99a28; cursor:pointer; transition:.25s; } .cta:hover { transform:translateY(-3px); box-shadow:0 20px 42px #f7d99a45; }
-    .portrait-wrap { position:relative; width:min(100%,420px); margin:auto; aspect-ratio:4/5; padding:10px; border:1px solid #ffffff42; border-radius:220px 220px 28px 28px; background:linear-gradient(145deg,#ffffff40,#ffffff05); box-shadow:0 30px 90px #0009; }
-    .portrait-wrap:before { content:""; position:absolute; inset:-12px; border:1px solid #f7d99a4d; border-radius:inherit; transform:rotate(4deg); }
-    .portrait { width:100%; height:100%; object-fit:cover; object-position:58% 42%; border-radius:210px 210px 20px 20px; display:block; }
-    .portrait-badge { position:absolute; bottom:28px; left:-24px; padding:13px 17px; border:1px solid #ffffff2b; border-radius:18px; background:#24151fdd; backdrop-filter:blur(16px); font-family:'Parisienne',cursive; color:var(--gold); font-size:1.4rem; transform:rotate(-8deg); }
-    .section { width:min(760px,100%); margin:100px auto 0; }
-    .glass { padding:clamp(24px,5vw,50px); border:1px solid #ffffff20; border-radius:30px; background:linear-gradient(135deg,#ffffff0d,#ffffff04); box-shadow:0 30px 90px #0005, inset 0 1px #ffffff16; backdrop-filter:blur(20px); }
-    .section h2 { margin-top:8px; font-family:'Cormorant Garamond',serif; font-size:clamp(2.7rem,7vw,5rem); line-height:.95; font-weight:600; }
-    .letter { margin-top:28px; color:#e8d9de; font-family:'Parisienne',cursive; font-size:clamp(1.6rem,3.5vw,2.15rem); line-height:1.45; }
-    .signature { margin-top:28px; color:var(--gold); font-family:'Parisienne',cursive; font-size:2.3rem; text-align:right; }
-    .memory-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:13px; margin-top:25px; }
-    .memory { padding:22px 17px; border:1px solid #ffffff18; border-radius:20px; background:#ffffff08; }
-    .memory b { display:block; margin:12px 0 5px; font-family:'Cormorant Garamond',serif; font-size:1.5rem; }
-    .memory span { color:#cbbbc2; font-size:.83rem; line-height:1.5; }
-    footer { margin-top:90px; text-align:center; color:#aa929e; font-size:.78rem; letter-spacing:.08em; }
-    @media(max-width:720px) { .hero { grid-template-columns:1fr; text-align:center; } .lead { margin-left:auto;margin-right:auto; } .portrait-wrap { width:min(82vw,350px); order:-1; } nav { padding-bottom:25px; } .memory-grid { grid-template-columns:1fr; } .section { margin-top:75px; } }
-    @media(prefers-reduced-motion:reduce) { *,*:before,*:after { animation:none!important; transition:none!important; } }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#09070d" />
+<title>For Sruti, with all my love ✨</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/motion@10.18.0/dist/motion.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=Parisienne&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--rose:#f59ab7;--gold:#f7d99a;--ink:#f8edf0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;color:var(--ink);font-family:'DM Sans',sans-serif;background:#09070d;overflow-x:hidden;overscroll-behavior-y:none}body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;z-index:4;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");mix-blend-mode:soft-light}.scene{min-height:100svh;position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 0%,#4a2535 0%,#1d1320 38%,#09070d 78%)}.scene:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 60%,#09070d 100%)}.orb{position:absolute;border-radius:50%;filter:blur(4px);opacity:.35;animation:drift 14s ease-in-out infinite alternate}.orb.one{width:34rem;height:34rem;top:-15rem;left:-10rem;background:#c05b7d}.orb.two{width:25rem;height:25rem;right:-10rem;bottom:5rem;background:#7660ad;animation-delay:-5s}@keyframes drift{to{transform:translate(28px,18px) scale(1.08)}}.wrap{position:relative;z-index:5;width:min(1050px,100%);margin:auto;padding:22px 18px 70px;perspective:1200px}nav{display:flex;justify-content:space-between;align-items:center;padding:10px 0 48px}.brand{font-family:'Cormorant Garamond',serif;font-size:1.5rem;letter-spacing:.05em}.eyebrow{color:var(--gold);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase}.hero{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:clamp(25px,7vw,90px);min-height:calc(100svh - 120px)}h1,h2,h3,p{margin:0}h1{font-family:'Cormorant Garamond',serif;font-size:clamp(4rem,10vw,8rem);line-height:.82;font-weight:600;letter-spacing:-.05em}h1 em{color:var(--rose);font-style:normal}.lead{max-width:430px;margin:28px 0;color:#d6c5cc;line-height:1.8}.cta{display:inline-flex;align-items:center;gap:10px;border:0;border-radius:999px;padding:15px 22px;color:#21121a;background:linear-gradient(120deg,var(--gold),#fff1c9);font-weight:700;box-shadow:0 16px 38px #f7d99a28;cursor:pointer;transition:.25s}.cta:hover{transform:translateY(-3px)}.portrait-wrap{position:relative;width:min(100%,420px);margin:auto;aspect-ratio:4/5;padding:10px;border:1px solid #ffffff42;border-radius:220px 220px 28px 28px;background:linear-gradient(145deg,#ffffff40,#ffffff05);box-shadow:0 30px 90px #0009;transform-style:preserve-3d}.portrait-wrap:before{content:"";position:absolute;inset:-12px;border:1px solid #f7d99a4d;border-radius:inherit;transform:rotate(4deg)}.portrait{width:100%;height:100%;object-fit:cover;object-position:58% 42%;border-radius:210px 210px 20px 20px;display:block}.portrait-badge{position:absolute;bottom:28px;left:-24px;padding:13px 17px;border:1px solid #ffffff2b;border-radius:18px;background:#24151fdd;backdrop-filter:blur(16px);font-family:'Parisienne',cursive;color:var(--gold);font-size:1.4rem;transform:rotate(-8deg) translateZ(35px)}.section{width:min(760px,100%);margin:100px auto 0;transform-style:preserve-3d}.glass{padding:clamp(24px,5vw,50px);border:1px solid #ffffff20;border-radius:30px;background:linear-gradient(135deg,#ffffff0d,#ffffff04);box-shadow:0 30px 90px #0005,inset 0 1px #ffffff16;backdrop-filter:blur(20px);will-change:transform}.section h2{margin-top:8px;font-family:'Cormorant Garamond',serif;font-size:clamp(2.7rem,7vw,5rem);line-height:.95;font-weight:600}.letter{margin-top:28px;color:#e8d9de;font-family:'Parisienne',cursive;font-size:clamp(1.6rem,3.5vw,2.15rem);line-height:1.45}.signature{margin-top:28px;color:var(--gold);font-family:'Parisienne',cursive;font-size:2.3rem;text-align:right}.memory-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:25px}.memory{padding:22px 17px;border:1px solid #ffffff18;border-radius:20px;background:#ffffff08;will-change:transform}.memory b{display:block;margin:12px 0 5px;font-family:'Cormorant Garamond',serif;font-size:1.5rem}.memory span{color:#cbbbc2;font-size:.83rem;line-height:1.5}footer{margin-top:90px;text-align:center;color:#aa929e;font-size:.78rem;letter-spacing:.08em}@media(max-width:720px){.hero{grid-template-columns:1fr;text-align:center}.lead{margin-left:auto;margin-right:auto}.portrait-wrap{width:min(82vw,350px);order:-1}nav{padding-bottom:25px}.memory-grid{grid-template-columns:1fr}.section{margin-top:75px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.glass,.memory,.portrait-wrap{transform:none!important}}@media(max-width:430px){.wrap{padding-left:14px;padding-right:14px}.hero{min-height:calc(100svh - 80px)}.portrait-wrap{width:min(78vw,310px)}}
+</style>
 </head>
 <body>
-  <main class="scene">
-    <div class="orb one"></div><div class="orb two"></div>
-    <div class="wrap">
-      <nav><div class="brand">A little universe for Sruti</div></nav>
-      <section class="hero">
-        <div class="hero-copy">
-          <div class="eyebrow">For the girl who makes everything brighter</div>
-          <h1>Happy<br><em>Birthday,</em><br>Sruti.</h1>
-          <p class="lead">Some people arrive in your life quietly, then somehow become your favourite part of every day. This little page is for you.</p>
-          <button class="cta" id="begin">Open your letter <span>↓</span></button>
-        </div>
-        <div class="portrait-wrap">
-          <img class="portrait" src="photo.jpg" alt="Sruti" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85';">
-          <div class="portrait-badge">made with all my heart ✨</div>
-        </div>
-      </section>
-      <section class="section" id="letter-section">
-        <div class="glass">
-          <div class="eyebrow">A handwritten note</div>
-          <h2>To my favourite person,</h2>
-          <div class="letter">Happy birthday, my love. ❤️<br><br>Every day with you feels a little softer, a little warmer, and infinitely more beautiful. I love the way you laugh, the way you care so deeply, and the way you make ordinary moments feel like memories I want to keep forever.<br><br>On your birthday, I hope life gives you back all the happiness you give to everyone around you. I hope you chase every dream without fear, smile without holding back, and always remember that I will be right here—cheering for you, choosing you, and loving you through every season.<br><br>You are my favourite view, my safest place, and my most beautiful blessing. Happy birthday, Sruti. May this year be as wonderful as your heart.</div>
-          <div class="signature">Always yours,<br>with love ♡</div>
-        </div>
-      </section>
-      <section class="section">
-        <div class="eyebrow">Three little truths</div>
-        <h2>Why you are unforgettable.</h2>
-        <div class="memory-grid">
-          <div class="memory"><div>♡</div><b>Your smile</b><span>It can turn the most ordinary day into something worth remembering.</span></div>
-          <div class="memory"><div>✦</div><b>Your heart</b><span>Kind, genuine, and brighter than you probably realise.</span></div>
-          <div class="memory"><div>∞</div><b>Our moments</b><span>The silly conversations and quiet comfort mean everything to me.</span></div>
-        </div>
-      </section>
-      <footer>Made especially for Sruti · with love, always</footer>
-    </div>
-  </main>
-  <script>
-    document.getElementById('begin').addEventListener('click',()=>{ document.getElementById('letter-section').scrollIntoView({behavior:'smooth'}); confetti({particleCount:90,spread:65,origin:{y:.7},colors:['#f59ab7','#f7d99a','#ffffff']}); });
-    if(window.Motion) Motion.animate('.hero-copy',{opacity:[0,1],y:[30,0]},{duration:1,ease:[.22,1,.36,1]});
-    if(window.Motion) Motion.animate('.portrait-wrap',{opacity:[0,1],scale:[.92,1],y:[24,0]},{duration:1.1,delay:.15,ease:[.22,1,.36,1]});
-    if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting&&window.Motion) Motion.animate(e.target,{opacity:[0,1],y:[28,0]},{duration:.8,ease:[.22,1,.36,1]});}),{threshold:.15});document.querySelectorAll('.section').forEach(s=>observer.observe(s));}
-  </script>
-</body>
-</html>
+<main class="scene"><div class="orb one"></div><div class="orb two"></div><div class="wrap">
+<nav><div class="brand">A little universe for Sruti</div></nav>
+<section class="hero"><div class="hero-copy"><div class="eyebrow">For the girl who makes everything brighter</div><h1>Happy<br><em>Birthday,</em><br>Sruti.</h1><p class="lead">Some people arrive in your life quietly, then somehow become your favourite part of every day. This little page is for you.</p><button class="cta" id="begin">Open your letter <span>↓</span></button></div><div class="portrait-wrap"><img class="portrait" src="photo.jpg" alt="Sruti" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85';"><div class="portrait-badge">made with all my heart ✨</div></div></section>
+<section class="section" id="letter-section"><div class="glass"><div class="eyebrow">A handwritten note</div><h2>To my favourite person,</h2><div class="letter">Happy birthday, my love. ❤️<br><br>Every day with you feels a little softer, a little warmer, and infinitely more beautiful. I love the way you laugh, the way you care so deeply, and the way you make ordinary moments feel like memories I want to keep forever.<br><br>On your birthday, I hope life gives you back all the happiness you give to everyone around you. I hope you chase every dream without fear, smile without holding back, and always remember that I will be right here—cheering for you, choosing you, and loving you through every season.<br><br>You are my favourite view, my safest place, and my most beautiful blessing. Happy birthday, Sruti. May this year be as wonderful as your heart.</div><div class="signature">Always yours,<br>with love ♡</div></div></section>
+<section class="section"><div class="eyebrow">Three little truths</div><h2>Why you are unforgettable.</h2><div class="memory-grid"><div class="memory"><div>♡</div><b>Your smile</b><span>It can turn the most ordinary day into something worth remembering.</span></div><div class="memory"><div>✦</div><b>Your heart</b><span>Kind, genuine, and brighter than you probably realise.</span></div><div class="memory"><div>∞</div><b>Our moments</b><span>The silly conversations and quiet comfort mean everything to me.</span></div></div></section><footer>Made especially for Sruti · with love, always</footer></div></main>
+<script>
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const begin=document.getElementById('begin');
+begin.addEventListener('click',()=>{document.getElementById('letter-section').scrollIntoView({behavior:'smooth'});confetti({particleCount:90,spread:65,origin:{y:.7},colors:['#f59ab7','#f7d99a','#ffffff']});});
+if(window.Motion&&!reduced){Motion.animate('.hero-copy',{opacity:[0,1],y:[30,0]},{duration:1,ease:[.22,1,.36,1]});Motion.animate('.portrait-wrap',{opacity:[0,1],scale:[.92,1],y:[24,0]},{duration:1.1,delay:.15,ease:[.22,1,.36,1]});}
+const sections=[...document.querySelectorAll('.section')], cards=[...document.querySelectorAll('.memory')];
+if(!reduced&&window.Motion){const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){Motion.animate(entry.target,{opacity:[0,1],y:[32,0],rotateX:[5,0]},{duration:.8,ease:[.22,1,.36,1]});}}),{threshold:.12});sections.forEach(s=>observer.observe(s));}
+let ticking=false;function cinematicScroll(){if(ticking)return;ticking=true;requestAnimationFrame(()=>{if(!reduced){const vh=innerHeight;sections.forEach((section,index)=>{const r=section.getBoundingClientRect(),center=r.top+r.height/2,delta=(center-vh/2)/(vh/2),rotate=Math.max(-5,Math.min(5,delta*3));section.style.transform=`perspective(1200px) rotateX(${rotate}deg) translateZ(${Math.max(0,4-Math.abs(delta)*4)}px)`;});cards.forEach((card,index)=>{const r=card.getBoundingClientRect(),delta=(r.top+r.height/2-innerHeight/2)/innerHeight;card.style.transform=`perspective(900px) rotateY(${Math.max(-3,Math.min(3,delta*2))}deg) translateZ(${Math.max(0,10-Math.abs(delta)*12)}px)`;});}ticking=false;});}addEventListener('scroll',cinematicScroll,{passive:true});addEventListener('resize',cinematicScroll);cinematicScroll();
+</script>
+</body></html>
