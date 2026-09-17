@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Happy Birthday Sruti ✨</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/motion@10.18.0/dist/motion.js"></script>
+
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+
+      * { box-sizing: border-box; }
+
+      html, body {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: radial-gradient(circle at 20% 15%, rgba(236, 72, 153, 0.16), transparent 30rem),
+                    radial-gradient(circle at 85% 85%, rgba(244, 63, 94, 0.15), transparent 28rem),
+                    #020617;
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+      }
+
+      button {
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .app-shell {
+        min-height: 100svh;
+        padding: max(0.75rem, env(safe-area-inset-top))
+                 max(0.75rem, env(safe-area-inset-right))
+                 max(0.75rem, env(safe-area-inset-bottom))
+                 max(0.75rem, env(safe-area-inset-left));
+      }
+
+      .phone {
+        width: min(100%, 440px);
+        min-height: min(900px, calc(100svh - 1.5rem));
+        max-height: 900px;
+        border-radius: clamp(1.75rem, 7vw, 2.75rem);
+        overflow: hidden;
+      }
+
+      .screen {
+        min-height: 0;
+        flex: 1;
+      }
+
+      .glass {
+        background: rgba(30, 41, 59, 0.62);
+        border: 1px solid rgba(148, 163, 184, 0.18);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25), inset 0 1px rgba(255, 255, 255, 0.04);
+        backdrop-filter: blur(18px);
+      }
+
+      .photo-focus {
+        object-position: 58% 42%;
+      }
+
+      .flame-flicker {
+        animation: flicker 1s infinite alternate ease-in-out;
+      }
+
+      @keyframes flicker {
+        0% {
+          transform: scale(1) rotate(-2deg);
+          opacity: 0.9;
+        }
+        100% {
+          transform: scale(1.18) rotate(2deg);
+          opacity: 1;
+          filter: drop-shadow(0 0 16px #f59e0b);
+        }
+      }
+
+      @media (max-height: 700px) {
+        .phone {
+          min-height: calc(100svh - 0.75rem);
+          padding: 1.15rem !important;
+        }
+
+        .hero-photo {
+          width: 5.75rem !important;
+          height: 5.75rem !important;
+          margin-bottom: 1rem !important;
+        }
+
+        .hero-title {
+          font-size: 1.75rem !important;
+        }
+      }
+
+      @media (min-width: 640px) {
+        .app-shell {
+          padding: 2rem;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.001ms !important;
+          transition-duration: 0.001ms !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="text-slate-100">
+    <main class="app-shell flex items-center justify-center">
+      <div id="app" class="phone relative flex flex-col justify-between border border-slate-800 bg-slate-900/90 p-4 shadow-2xl sm:p-6">
+        <div class="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-pink-500/20 blur-3xl"></div>
+        <div class="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-rose-600/20 blur-3xl"></div>
+
+        <div class="relative z-10 flex items-center justify-between pt-1">
+          <div class="flex gap-1.5" id="progress-bars">
+            <div class="h-1.5 w-8 rounded-full bg-pink-500 transition-all duration-500" id="bar-0"></div>
+            <div class="h-1.5 w-2 rounded-full bg-slate-700 transition-all duration-500" id="bar-1"></div>
+            <div class="h-1.5 w-2 rounded-full bg-slate-700 transition-all duration-500" id="bar-2"></div>
+            <div class="h-1.5 w-2 rounded-full bg-slate-700 transition-all duration-500" id="bar-3"></div>
+          </div>
+
+          <button id="music-toggle" onclick="toggleMusic()" class="rounded-full border border-pink-400/20 bg-pink-500/10 px-3 py-1.5 text-xs text-pink-200 transition hover:bg-pink-500/20 active:scale-95" aria-label="Toggle music">
+            🎵 Music
+          </button>
+        </div>
+
+        <audio id="birthday-music" loop preload="auto">
+          <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_a79f1611fd.mp3?filename=happy-birthday-508020.mp3" type="audio/mpeg" />
+        </audio>
+
+        <div id="screen-0" class="screen relative z-10 flex flex-col items-center justify-center text-center my-auto transition-all duration-300">
+          <div class="relative mb-6">
+            <div class="absolute -inset-1 rounded-full bg-gradient-to-tr from-pink-500 to-rose-400 opacity-80 blur-md animate-pulse"></div>
+            <div class="relative flex h-28 w-28 items-center justify-center overflow-hidden rounded-full border-2 border-pink-400/80 bg-slate-900 p-1 shadow-2xl sm:h-32 sm:w-32">
+              <img
+                id="main-photo"
+                src="photo.jpg"
+                alt="Sruti"
+                class="hero-photo photo-focus h-full w-full rounded-full object-cover"
+                onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';"
+              />
+            </div>
+            <div class="absolute bottom-0 right-0 rounded-full bg-pink-500 p-1.5 text-white shadow-lg">👑</div>
+          </div>
+
+          <h1 class="hero-title mb-2 text-3xl font-black tracking-tight sm:text-4xl">
+            Happy Birthday,<br />
+            <span class="bg-gradient-to-r from-pink-400 to-rose-300 bg-clip-text text-transparent">Sruti</span>!
+          </h1>
+
+          <p class="mb-8 max-w-[280px] text-sm leading-relaxed text-slate-400">
+            Built a tiny corner of the internet just to celebrate you today.
+          </p>
+
+          <button onclick="startMusic(); goToScreen(1);" class="w-full rounded-2xl bg-gradient-to-r from-pink-500 to-rose-500 py-4 font-semibold text-white shadow-lg shadow-pink-500/25 transition active:scale-95">
+            Open Your Surprise →
+          </button>
+        </div>
+
+        <div id="screen-1" class="screen relative z-10 hidden flex-col items-center justify-center text-center my-auto transition-all duration-300">
+          <div class="relative mb-8">
+            <div id="flame" class="flame-flicker mx-auto h-9 w-6 rounded-full bg-gradient-to-t from-orange-400 via-amber-300 to-yellow-100 transition-all duration-500"></div>
+            <div class="mx-auto h-10 w-2 rounded-sm bg-slate-300 shadow-inner"></div>
+            <div class="mx-auto flex h-12 w-28 items-center justify-center rounded-t-2xl border-t-4 border-pink-300 bg-pink-500 shadow-md">
+              <span class="text-xl">🎂</span>
+            </div>
+          </div>
+
+          <h2 id="candle-title" class="mb-2 text-2xl font-bold">Make a Wish, Sruti!</h2>
+          <p id="candle-subtitle" class="mb-8 max-w-[260px] text-sm text-slate-400">
+            Close your eyes, think of what you want most this year, and blow out the candle.
+          </p>
+
+          <button id="blow-btn" onclick="blowCandle()" class="w-full rounded-2xl border border-pink-500/40 bg-slate-800 py-4 font-semibold text-pink-300 transition active:scale-95">
+            Blow the Candle 🎂💨
+          </button>
+        </div>
+
+        <div id="screen-2" class="screen relative z-10 hidden flex-col items-center justify-center my-auto transition-all duration-300">
+          <div class="mb-3 w-full text-left">
+            <span id="card-tag" class="text-xs font-semibold uppercase tracking-widest text-pink-400">Special Memory</span>
+            <h3 class="mt-0.5 text-xl font-bold">Things I Adore About You</h3>
+          </div>
+
+          <div class="glass mb-6 flex min-h-[240px] w-full flex-col justify-between rounded-3xl p-5 shadow-xl sm:p-6">
+            <div class="flex items-start justify-between">
+              <span id="card-emoji" class="text-3xl">💖</span>
+              <span id="card-count" class="rounded-full bg-pink-500/20 px-3 py-1 text-xs font-semibold text-pink-300">1 / 3</span>
+            </div>
+
+            <div>
+              <h4 id="card-title" class="mb-1 text-lg font-bold text-pink-200">Your Smile</h4>
+              <p id="card-desc" class="text-sm leading-relaxed text-slate-300">
+                The way your face lights up whenever you laugh is genuinely my favorite thing.
+              </p>
+            </div>
+          </div>
+
+          <button id="next-memory-btn" onclick="nextMemory()" class="w-full rounded-2xl border border-slate-700 bg-slate-800 py-4 font-medium text-slate-200 transition active:scale-95">
+            Next Reason →
+          </button>
+        </div>
+
+        <div id="screen-3" class="screen relative z-10 hidden flex-col items-center justify-center text-center my-auto transition-all duration-300">
+          <div class="mb-3 flex h-16 w-16 items-center justify-center rounded-full border border-pink-500/40 bg-pink-500/10 p-1">
+            <img id="letter-avatar" src="photo.jpg" alt="Sruti" class="photo-focus h-full w-full rounded-full object-cover" onerror="this.style.display='none';" />
+          </div>
+
+          <h3 class="mb-1 bg-gradient-to-r from-pink-400 to-rose-300 bg-clip-text text-2xl font-black text-transparent">
+            Happy Birthday, Sruti!
+          </h3>
+          <p class="mb-3 text-xs text-pink-400/80">Forever grateful for you ✨</p>
+
+          <div id="letter-body" class="mb-5 max-h-[240px] w-full overflow-y-auto whitespace-pre-line rounded-2xl border border-slate-700/50 bg-slate-800/60 p-5 text-left text-sm leading-relaxed text-slate-200">
+Happy Birthday to the sweetest, most special person! ❤️
+
+Thank you for always bringing so much peace, laughter, and happiness into my days. You make everything around you better just by being yourself.
+
+I hope this new year of your life brings you endless smiles, success in everything you strive for, and all the love in the world. I'm always cheering for you, Sruti!
+          </div>
+
+          <button onclick="fireConfetti()" class="w-full rounded-2xl bg-gradient-to-r from-pink-500 to-rose-500 py-4 font-semibold text-white shadow-lg shadow-pink-500/25 transition active:scale-95">
+            Shower Sruti With Love 💖
+          </button>
+        </div>
+
+        <div class="relative z-10 flex justify-center pt-2">
+          <div class="h-1 w-32 rounded-full bg-slate-700/70"></div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const CONFIG = {
+        name: "Sruti",
+        memories: [
+          { emoji: "💖", tag: "My Favorite View", title: "Your Smile", desc: "The way you smile without holding back is genuinely my favorite thing in the world." },
+          { emoji: "✨", tag: "Our Moments", title: "Every Conversation", desc: "The silly jokes, late talks, and effortless comfort whenever we talk." },
+          { emoji: "🌟", tag: "One of a Kind", title: "Your Heart", desc: "You are kind, genuine, and one in a million. Never change." }
+        ]
+      };
+
+      let currentMemory = 0;
+      const music = document.getElementById("birthday-music");
+      const musicToggle = document.getElementById("music-toggle");
+
+      function animateIn(element) {
+        if (!element) return;
+        if (window.Motion && window.Motion.animate) {
+          Motion.animate(
+            element,
+            { opacity: [0, 1], y: [24, 0], scale: [0.98, 1] },
+            { duration: 0.65, ease: [0.22, 1, 0.36, 1] }
+          );
+        } else {
+          element.style.opacity = "1";
+        }
+      }
+
+      function startMusic() {
+        if (!music) return;
+        music.play().catch(() => {});
+        musicToggle.textContent = "🔊 Music";
+      }
+
+      function toggleMusic() {
+        if (!music) return;
+        if (music.paused) {
+          music.play().catch(() => {});
+          musicToggle.textContent = "🔊 Music";
+        } else {
+          music.pause();
+          musicToggle.textContent = "🔇 Music";
+        }
+      }
+
+      function fireConfetti() {
+        confetti({
+          particleCount: 120,
+          spread: 75,
+          origin: { y: 0.65 },
+          colors: ["#f43f5e", "#ec4899", "#fb7185", "#ffd166"]
+        });
+      }
+
+      function updateProgress(step) {
+        for (let i = 0; i <= 3; i++) {
+          const bar = document.getElementById(`bar-${i}`);
+          bar.className =
+            i === step
+              ? "h-1.5 w-8 rounded-full bg-pink-500 transition-all duration-500"
+              : "h-1.5 w-2 rounded-full bg-slate-700 transition-all duration-500";
+        }
+      }
+
+      function goToScreen(step) {
+        document.querySelectorAll('[id^="screen-"]').forEach((screen) => {
+          screen.classList.add("hidden");
+          screen.classList.remove("flex");
+        });
+
+        const target = document.getElementById(`screen-${step}`);
+        target.classList.remove("hidden");
+        target.classList.add("flex");
+        target.style.opacity = "0";
+
+        updateProgress(step);
+        animateIn(target);
+
+        if (step === 3) {
+          setTimeout(fireConfetti, 450);
+        }
+      }
+
+      function blowCandle() {
+        const flame = document.getElementById("flame");
+        const button = document.getElementById("blow-btn");
+
+        flame.style.transform = "scale(0) translateY(-20px)";
+        flame.style.opacity = "0";
+
+        document.getElementById("candle-title").innerText = "Wish Granted, Sruti! 🌟";
+        document.getElementById("candle-subtitle").innerText = "May every single wish of yours come true...";
+        button.style.display = "none";
+
+        fireConfetti();
+
+        setTimeout(() => goToScreen(2), 1800);
+      }
+
+      function nextMemory() {
+        currentMemory++;
+
+        if (currentMemory < CONFIG.memories.length) {
+          const item = CONFIG.memories[currentMemory];
+          document.getElementById("card-emoji").innerText = item.emoji;
+          document.getElementById("card-tag").innerText = item.tag;
+          document.getElementById("card-title").innerText = item.title;
+          document.getElementById("card-desc").innerText = item.desc;
+          document.getElementById("card-count").innerText = `${currentMemory + 1} / ${CONFIG.memories.length}`;
+
+          const card = document.querySelector("#screen-2 .glass");
+          if (window.Motion && window.Motion.animate) {
+            Motion.animate(
+              card,
+              { opacity: [0.35, 1], x: [20, 0] },
+              { duration: 0.45, ease: [0.22, 1, 0.36, 1] }
+            );
+          }
+
+          if (currentMemory === CONFIG.memories.length - 1) {
+            const button = document.getElementById("next-memory-btn");
+            button.innerText = "Read My Letter for Sruti 💖";
+            button.className = "w-full rounded-2xl bg-gradient-to-r from-pink-500 to-rose-500 py-4 font-semibold text-white shadow-lg shadow-pink-500/25 transition active:scale-95";
+          }
+        } else {
+          goToScreen(3);
+        }
+      }
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const app = document.getElementById("app");
+        if (window.Motion && window.Motion.animate) {
+          Motion.animate(
+            app,
+            { opacity: [0, 1], y: [30, 0], scale: [0.97, 1] },
+            { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+          );
+        }
+      });
+    </script>
+  </body>
+</html>
